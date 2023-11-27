@@ -1,4 +1,4 @@
-import { calculator, capitalize, reverseString } from './index';
+import { caesarCipher, calculator, capitalize, reverseString } from './index';
 
 describe('capitalize', () => {
 	test('handles one word', () => {
@@ -33,20 +33,23 @@ describe('calculator', () => {
 	});
 });
 
-describe.skip('caesar', () => {
+describe('caesar', () => {
 	test('shifts one word', () => {
-		expect(caesarCipher(1, 2)).toBe(3);
+		expect(caesarCipher('hello', 3)).toBe('khoor');
 	});
 	test('wraps z back to a', () => {
-		expect(caesarCipher(1, 2)).toBe(3);
+		expect(caesarCipher('xyz', 3)).toBe('abc');
 	});
-	test('shifts a string of only letters', () => {
-		expect(caesarCipher(1, 2)).toBe(3);
-	});
-	test('keeps letter case the same', () => {
-		expect(caesarCipher(1, 2)).toBe(3);
+	test('shifts a string of only letters and spaces', () => {
+		expect(caesarCipher('a tall man', 5)).toBe('f yfqq rfs');
 	});
 	test('ignores punctuation', () => {
-		expect(caesarCipher(1, 2)).toBe(3);
+		expect(caesarCipher("i can't stand him.", 1)).toBe("j dbo'u tuboe ijn.");
+	});
+	test('keeps letter case the same', () => {
+		expect(caesarCipher('Hello World', 3)).toBe('Khoor Zruog');
+	});
+	test('handles varied case and punctuation', () => {
+		expect(caesarCipher("I can't stand him.", 1)).toBe("J dbo'u tuboe ijn.");
 	});
 });

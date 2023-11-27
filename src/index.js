@@ -14,3 +14,37 @@ export const calculator = (() => {
 		divide: (a, b) => a / b,
 	};
 })();
+
+export function caesarCipher(str, shiftFactor) {
+	const { lowerDict, upperDict } = getDictionaries(shiftFactor);
+	return str
+		.split('')
+		.map((char) => {
+			return lowerDict[char] ?? upperDict[char] ?? char;
+		})
+		.join('');
+}
+
+function getDictionaries(shiftFactor) {
+	const lowerAlf = 'abcdefghijklmnopqrstuvwxyz'.split('');
+	const lowerShifted = lowerAlf.map((char, index) => {
+		const shiftIndex = index + shiftFactor;
+		return lowerAlf[
+			shiftIndex < lowerAlf.length ? shiftIndex : shiftIndex - lowerAlf.length
+		];
+	});
+
+	let lowerDict = {};
+	lowerAlf.forEach((char, index) => {
+		lowerDict[char] = lowerShifted[index];
+	});
+
+	let upperDict = {};
+	const upperInput = Object.keys(lowerDict).map((char) => char.toUpperCase());
+	const upperOutput = Object.values(lowerDict).map((char) => char.toUpperCase());
+	upperInput.forEach((char, index) => {
+		upperDict[char] = upperOutput[index];
+	});
+
+	return { lowerDict, upperDict };
+}
