@@ -1,4 +1,10 @@
-import { caesarCipher, calculator, capitalize, reverseString } from './index';
+import {
+	analyzeArray,
+	caesarCipher,
+	calculator,
+	capitalize,
+	reverseString,
+} from './index';
 
 describe('capitalize', () => {
 	test('handles one word', () => {
@@ -51,5 +57,55 @@ describe('caesar', () => {
 	});
 	test('handles varied case and punctuation', () => {
 		expect(caesarCipher("I can't stand him.", 1)).toBe("J dbo'u tuboe ijn.");
+	});
+});
+
+describe('Array analyzer', () => {
+	test('fn returns an object', () => {
+		expect(analyzeArray([1, 2, 3])).toBeTruthy();
+	});
+
+	// Avg
+	test('average of short array', () => {
+		expect(analyzeArray([1, 2, 3]).average).toBeCloseTo(2);
+	});
+	test('average of med array', () => {
+		expect(analyzeArray([1, 2, 3, 4, 5]).average).toBeCloseTo(3);
+	});
+	test('average of long array', () => {
+		expect(analyzeArray([1, 2, 3, 4, 5, 7, 10, 20]).average).toBeCloseTo(6.5);
+	});
+
+	// Min
+	test('min of short array', () => {
+		expect(analyzeArray([1, 2, 3]).min).toBe(1);
+	});
+	test('min of med array', () => {
+		expect(analyzeArray([0, 2, 3, 4, 5]).min).toBe(0);
+	});
+	test('min of long array', () => {
+		expect(analyzeArray([-31, 2, 3, 5, 7, 10, 20]).min).toBe(-31);
+	});
+
+	// Max
+	test('max of short array', () => {
+		expect(analyzeArray([1, 2, 3]).max).toBe(3);
+	});
+	test('max of med array', () => {
+		expect(analyzeArray([1, 2, 3, 4, 5]).max).toBe(5);
+	});
+	test('max of long array', () => {
+		expect(analyzeArray([1, 2, 3, 5, 7, 10, 20]).max).toBe(20);
+	});
+
+	// Length
+	test('length of short array', () => {
+		expect(analyzeArray([1, 2, 3]).length).toBe(3);
+	});
+	test('length of med array', () => {
+		expect(analyzeArray([1, 2, 3, 4, 5]).length).toBe(5);
+	});
+	test('length of long array', () => {
+		expect(analyzeArray([1, 2, 3, 4, 5, 7, 10, 20]).length).toBe(8);
 	});
 });
